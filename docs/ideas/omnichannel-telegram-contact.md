@@ -6,17 +6,17 @@ How Might We transform the static "Let's Connect" modal on `resume.abbakkio.dev`
 ## Recommended Direction
 **The Frictionless Omnichannel Hub** — A unified two-tier contact interface:
 1. **Immediate Zero-Friction Channels (Top Strip):** Instant 1-click badges for visitors who want direct conversation:
-   - **Telegram:** `https://t.me/abbakkio`
+   - **Telegram:** `https://t.me/voidpip`
    - **LinkedIn:** `https://www.linkedin.com/in/azatmadiyev`
    - **WhatsApp:** `https://wa.me/77016255449`
    - **Email:** `mailto:upirovazat7@gmail.com`
-2. **Direct-to-Telegram Web Form (Bottom):** An in-page form submitting directly to `POST https://api.abbakkio.dev/api/v1/messages/send`:
+2. **Direct-to-Telegram Web Form (Bottom):** An in-page form submitting directly to `POST https://api.abbakkio.dev/api/messages/send`:
    - Accepts Name, Flexible Contact (`Email, @telegram, or Phone`), and Message.
    - Triggers instant HTML-formatted push notifications to Azat's personal Telegram via the Telegram Bot API (`telegram_service.send_anonymous_note`).
    - Includes anti-spam honeypot (`bot_trap`) and server-side IP rate limiting (5 msgs / 10 mins).
 
 ## Key Assumptions to Validate
-- [x] **Backend Endpoint Readiness:** `https://api.abbakkio.dev/api/v1/messages/send` is live and healthy.
+- [x] **Backend Endpoint Readiness:** `https://api.abbakkio.dev/api/messages/send` is live and healthy.
 - [x] **CORS Origins:** Verified that `https://resume.abbakkio.dev` is authorized by regex `^https://([a-zA-Z0-9-]+\.)*abbakkio\.dev$`.
 - [x] **Anti-Spam Defense:** Validated honeypot field prevents bots from spamming your Telegram bot without annoying real users with captchas.
 

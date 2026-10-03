@@ -45,7 +45,7 @@ export const ConnectModal: React.FC<ConnectModalProps> = ({ isOpen, onClose }) =
 
     try {
       const apiBase = (import.meta.env.VITE_API_BASE_URL as string | undefined) || 'https://api.abbakkio.dev'
-      const response = await fetch(`${apiBase}/api/v1/messages/send`, {
+      const response = await fetch(`${apiBase}/api/messages/send`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -103,7 +103,7 @@ export const ConnectModal: React.FC<ConnectModalProps> = ({ isOpen, onClose }) =
         {/* Quick Connect Channels Strip */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 mb-5">
           <a
-            href="https://t.me/abbakkio"
+            href="https://t.me/voidpip"
             target="_blank"
             rel="noreferrer"
             className="apple-btn flex items-center justify-center gap-2 p-2.5 rounded-xl bg-[#f0ede8] dark:bg-[#1c1c1c] hover:bg-[#eae6df] dark:hover:bg-[#252525] border border-[#e2ddd5] dark:border-[#2a2a2a] text-xs font-medium text-neutral-800 dark:text-neutral-200 hover:text-[#0088cc] dark:hover:text-[#29b6f6] transition-all group"
