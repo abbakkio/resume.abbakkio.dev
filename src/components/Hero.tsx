@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { Globe, ArrowUpRight, Construction, X } from 'lucide-react'
+import { Globe, ArrowUpRight, Download } from 'lucide-react'
 
 interface HeroProps {
   onConnectClick: () => void
@@ -112,63 +112,8 @@ export const GreetingRotator: React.FC = () => {
 }
 
 export const Hero: React.FC<HeroProps> = ({ onConnectClick }) => {
-  const [showDevNotification, setShowDevNotification] = useState<boolean>(false)
-  const notificationTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-
-  const handleDownloadCv = (e: React.MouseEvent) => {
-    e.preventDefault()
-    setShowDevNotification(true)
-    if (notificationTimerRef.current) {
-      clearTimeout(notificationTimerRef.current)
-    }
-    notificationTimerRef.current = setTimeout(() => {
-      setShowDevNotification(false)
-    }, 4000)
-  }
-
   return (
     <section id="hero" className="relative pt-12 pb-20 md:py-24 border-b border-[#e2ddd5] dark:border-[#1f1f1f] px-6 sm:px-12 overflow-hidden transition-colors duration-200">
-      {/* Development Notification Toast - Apple Dynamic Island Style */}
-      {showDevNotification && (
-        <div 
-          role="status"
-          aria-live="polite"
-          className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[92%] sm:w-auto min-w-[340px] max-w-md animate-apple-toast select-none"
-        >
-          <div className="rounded-3xl bg-white/85 dark:bg-[#121212]/90 border border-black/10 dark:border-white/10 shadow-[0_20px_45px_-12px_rgba(0,0,0,0.18),0_0_1px_1px_rgba(0,0,0,0.06)] dark:shadow-[0_20px_45px_-12px_rgba(0,0,0,0.8),0_0_1px_1px_rgba(255,255,255,0.08)] backdrop-blur-2xl p-3.5 sm:px-4 sm:py-3.5 flex items-center gap-3.5 relative overflow-hidden">
-            {/* Ambient subtle glow */}
-            <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-40 h-10 bg-amber-500/20 blur-xl pointer-events-none rounded-full" />
-            
-            {/* Dynamic Island Icon */}
-            <div className="w-9 h-9 rounded-2xl bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/20 flex items-center justify-center flex-shrink-0 shadow-inner">
-              <Construction className="w-4 h-4 animate-pulse" />
-            </div>
-
-            {/* Notification Text */}
-            <div className="flex-1 pr-1 text-left min-w-0">
-              <div className="text-xs sm:text-[13px] font-semibold text-neutral-900 dark:text-white tracking-tight flex items-center gap-1.5">
-                <span>Currently under development</span>
-                <span className="w-1.5 h-1.5 rounded-full bg-amber-500 inline-block" />
-              </div>
-              <div className="text-[11px] text-neutral-500 dark:text-neutral-400 font-mono-custom mt-0.5 truncate">
-                Resume download will be available soon!
-              </div>
-            </div>
-
-            {/* Close Button */}
-            <button
-              onClick={() => setShowDevNotification(false)}
-              aria-label="Close notification"
-              className="apple-btn w-6 h-6 rounded-full flex items-center justify-center text-neutral-400 hover:text-neutral-900 dark:hover:text-white bg-neutral-100 dark:bg-neutral-800/80 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors ml-1 flex-shrink-0"
-            >
-              <X className="w-3.5 h-3.5" />
-            </button>
-
-            {/* Auto-dismiss progress line */}
-            <div className="absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-amber-500 via-[#ff5c00] to-amber-500 animate-toast-progress rounded-full opacity-60" />
-          </div>
-        </div>
-      )}
 
       <div className="flex flex-col lg:flex-row items-start justify-between gap-12 lg:gap-8">
         {/* Left Column: Text & CTA */}
@@ -210,12 +155,14 @@ export const Hero: React.FC<HeroProps> = ({ onConnectClick }) => {
 
           {/* Action Buttons */}
           <div className="animate-apple-fade-up animation-delay-300 flex flex-wrap items-center gap-3">
-            <button
-              onClick={handleDownloadCv}
-              className="apple-btn px-5 py-2.5 rounded-full bg-white dark:bg-[#181818] hover:bg-neutral-100 dark:hover:bg-[#242424] border border-[#e2ddd5] dark:border-[#2d2d2d] text-sm font-medium text-neutral-800 dark:text-neutral-200 hover:text-black dark:hover:text-white transition-all duration-150 shadow-sm"
+            <a
+              href="/Azat_Madiyev_Resume.pdf"
+              download="Azat_Madiyev_Resume.pdf"
+              className="apple-btn px-5 py-2.5 rounded-full bg-white dark:bg-[#181818] hover:bg-neutral-100 dark:hover:bg-[#242424] border border-[#e2ddd5] dark:border-[#2d2d2d] text-sm font-medium text-neutral-800 dark:text-neutral-200 hover:text-black dark:hover:text-white transition-all duration-150 shadow-sm inline-flex items-center gap-2"
             >
-              Download CV
-            </button>
+              <Download className="w-4 h-4 text-[#ff5c00]" />
+              <span>Download CV</span>
+            </a>
             <button
               onClick={onConnectClick}
               className="apple-btn px-5 py-2.5 rounded-full bg-white dark:bg-[#181818] hover:bg-neutral-100 dark:hover:bg-[#242424] border border-[#e2ddd5] dark:border-[#2d2d2d] text-sm font-medium text-neutral-800 dark:text-neutral-200 hover:text-black dark:hover:text-white transition-all duration-150 shadow-sm flex items-center gap-2"
