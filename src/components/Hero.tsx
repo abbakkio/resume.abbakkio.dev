@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { Globe, ArrowUpRight, Download } from 'lucide-react'
+import { Globe, ArrowUpRight, Download, Compass } from 'lucide-react'
 
 interface HeroProps {
   onConnectClick: () => void
+  onRoadmapClick?: () => void
 }
 
 const GREETINGS = [
@@ -111,7 +112,7 @@ export const GreetingRotator: React.FC = () => {
   )
 }
 
-export const Hero: React.FC<HeroProps> = ({ onConnectClick }) => {
+export const Hero: React.FC<HeroProps> = ({ onConnectClick, onRoadmapClick }) => {
   return (
     <section id="hero" className="relative pt-12 pb-20 md:py-24 border-b border-[#e2ddd5] dark:border-[#1f1f1f] px-6 sm:px-12 overflow-hidden transition-colors duration-200">
 
@@ -163,6 +164,15 @@ export const Hero: React.FC<HeroProps> = ({ onConnectClick }) => {
               <Download className="w-4 h-4 text-[#ff5c00]" />
               <span>Download CV</span>
             </a>
+            {onRoadmapClick && (
+              <button
+                onClick={onRoadmapClick}
+                className="apple-btn px-5 py-2.5 rounded-full bg-white dark:bg-[#181818] hover:bg-neutral-100 dark:hover:bg-[#242424] border border-[#e2ddd5] dark:border-[#2d2d2d] text-sm font-medium text-neutral-800 dark:text-neutral-200 hover:text-black dark:hover:text-white transition-all duration-150 shadow-sm flex items-center gap-2"
+              >
+                <Compass className="w-4 h-4 text-[#ff5c00]" />
+                <span>AI Roadmap</span>
+              </button>
+            )}
             <button
               onClick={onConnectClick}
               className="apple-btn px-5 py-2.5 rounded-full bg-white dark:bg-[#181818] hover:bg-neutral-100 dark:hover:bg-[#242424] border border-[#e2ddd5] dark:border-[#2d2d2d] text-sm font-medium text-neutral-800 dark:text-neutral-200 hover:text-black dark:hover:text-white transition-all duration-150 shadow-sm flex items-center gap-2"

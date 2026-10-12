@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { User, Briefcase, Code2, Sparkles, Sun, Moon } from 'lucide-react'
+import { User, Briefcase, Code2, Sparkles, Sun, Moon, Compass } from 'lucide-react'
 
 interface FloatingNavProps {
   isDark: boolean
   setIsDark: (val: boolean | ((prev: boolean) => boolean)) => void
   showFeaturedWorks?: boolean
   showServices?: boolean
+  currentView?: 'home' | 'roadmap'
+  onNavigate?: (view: 'home' | 'roadmap') => void
 }
 
 export const FloatingNav: React.FC<FloatingNavProps> = ({
@@ -13,6 +15,8 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({
   setIsDark,
   showFeaturedWorks = false,
   showServices = false,
+  currentView = 'home',
+  onNavigate,
 }) => {
   const [time, setTime] = useState<string>('')
 
@@ -41,15 +45,24 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({
         className="fixed bottom-[max(1.25rem,env(safe-area-inset-bottom))] left-1/2 -translate-x-1/2 translate-y-0 md:left-6 md:top-1/2 md:-translate-y-1/2 md:translate-x-0 md:bottom-auto z-40 flex flex-row md:flex-col items-center gap-2 md:gap-3 p-1.5 rounded-full bg-white/90 dark:bg-[#141414]/90 border border-[#e2ddd5] dark:border-[#262626] backdrop-blur-md shadow-2xl transition-all duration-200"
       >
         <button
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          title="Top"
+          onClick={() => {
+            if (currentView === 'roadmap') {
+              onNavigate?.('home')
+            } else {
+              window.scrollTo({ top: 0, behavior: 'smooth' })
+            }
+          }}
+          title={currentView === 'roadmap' ? 'Back to Portfolio' : 'Top'}
           className="apple-btn p-2.5 rounded-full text-neutral-600 dark:text-neutral-400 hover:text-black dark:hover:text-white hover:bg-neutral-200/70 dark:hover:bg-neutral-800/80"
         >
           <User className="w-4 h-4" />
         </button>
         {showFeaturedWorks && (
           <button
-            onClick={() => scrollTo('work')}
+            onClick={() => {
+              if (currentView === 'roadmap') onNavigate?.('home')
+              scrollTo('work')
+            }}
             title="Work"
             className="apple-btn p-2.5 rounded-full text-neutral-600 dark:text-neutral-400 hover:text-black dark:hover:text-white hover:bg-neutral-200/70 dark:hover:bg-neutral-800/80"
           >
@@ -57,15 +70,42 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({
           </button>
         )}
         <button
-          onClick={() => scrollTo('experience')}
+          onClick={() => {
+            if (currentView === 'roadmap') {
+              onNavigate?.('home')
+              setTimeout(() => scrollTo('experience'), 50)
+            } else {
+              scrollTo('experience')
+            }
+          }}
           title="Experience"
           className="apple-btn p-2.5 rounded-full text-neutral-600 dark:text-neutral-400 hover:text-black dark:hover:text-white hover:bg-neutral-200/70 dark:hover:bg-neutral-800/80"
         >
           <Code2 className="w-4 h-4" />
         </button>
+        <button
+          onClick={() => {
+            if (currentView !== 'roadmap') {
+              onNavigate?.('roadmap')
+            } else {
+              window.scrollTo({ top: 0, behavior: 'smooth' })
+            }
+          }}
+          title="AI & Data Science Roadmap"
+          className={`apple-btn p-2.5 rounded-full ${
+            currentView === 'roadmap'
+              ? 'text-[#ff5c00] hover:bg-neutral-200/70 dark:hover:bg-neutral-800/80'
+              : 'text-neutral-600 dark:text-neutral-400 hover:text-[#ff5c00] hover:bg-neutral-200/70 dark:hover:bg-neutral-800/80'
+          }`}
+        >
+          <Compass className="w-4 h-4" />
+        </button>
         {showServices && (
           <button
-            onClick={() => scrollTo('services')}
+            onClick={() => {
+              if (currentView === 'roadmap') onNavigate?.('home')
+              scrollTo('services')
+            }}
             title="Services"
             className="apple-btn p-2.5 rounded-full text-neutral-600 dark:text-neutral-400 hover:text-black dark:hover:text-white hover:bg-neutral-200/70 dark:hover:bg-neutral-800/80"
           >
